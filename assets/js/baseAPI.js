@@ -13,7 +13,7 @@ $.ajaxPrefilter( function( options ) {
     options.complete=function(res){
         
         // 返回值中的responseJSON就是服务器响应回来的数据
-        console.log(res.responseJSON);
+        // console.log(res.responseJSON);
         // 
         if(res.responseJSON.status===1){
             // 清除本地token

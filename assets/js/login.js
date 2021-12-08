@@ -36,7 +36,8 @@ $(function(){
         $.post('/api/login',loginData,function(res){
             if(res.status===0){
                 layer.msg(res.message+"马上跳转到首页...");
-                localStorage.setItem('token',res.token)
+                localStorage.setItem('token',res.token);
+                localStorage.setItem('pwd',$('[name="password"]').val());
                 setTimeout(function(){
                     location.href="./index.html"
                 },500)

@@ -9,6 +9,7 @@ $(function(){
             //do something
             // 1、清空本地存储中的token
             localStorage.removeItem('token');
+            localStorage.removeItem('pwd');
             // 2、跳转到登录页
             location.href="./login.html";
             layer.close(index);
@@ -17,6 +18,7 @@ $(function(){
     
 })
 var layer = layui.layer;
+
 // 获取用户的基本信息
 function getUserInfo(){
     $.ajax({
@@ -32,7 +34,6 @@ function getUserInfo(){
             }
             // 调用函数渲染头像
             renderAvatar(res.data);
-            
         },
         
     })
@@ -42,7 +43,7 @@ function renderAvatar(user){
     // 欢迎后面的名字
     // 如果用户有昵称就渲染昵称，如果没有就渲染用户名
     var welcomeName = user.nickname||user.username;
-    $('#welcome-name').append(user.username)
+    $('#welcome-name').html(welcomeName)
     // 判断用户有没有头像图片
     if(user.user_pic===null){
         // 用户没有头像图片,渲染文本头像
