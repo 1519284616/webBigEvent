@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文章类别</title>
+    <link rel="stylesheet" href="../assets/lib/layui/css/layui.css" />
+    <link rel="stylesheet" href="../assets/css/article/article_list.css" />
+  </head>
+  <body>
+    <div class="layui-card">
+      <div class="layui-card-header">文章列表</div>
+      <div class="layui-card-body">
+        <!-- 筛选 -->
+        <form class="layui-form" id="form-search" >
+            <div class="layui-form-item layui-inline">
+                <select name="cate_id" id="sel-cate">
+                </select>
+            </div>
+            <div class="layui-form-item layui-inline">
+                <!-- name要与请求接口时的参数列表中的属性值一样 -->
+                <select name="state" lay-verify="" id="sel-state">
+                    <option value="">所有状态</option>
+                    <option value="已发布">已发布</option>
+                    <option value="草稿">草稿</option>
+                </select>
+            </div>
+            <div class="layui-form-item layui-inline">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
+            </div>
+        </form>
+
+        <!-- 列表区域 -->
+        <table class="layui-table">
+          <colgroup>
+            <col/>
+            <col width="150" />
+            <col width="180" />
+            <col width="150" />
+            <col width="150" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>文章标题</th>
+              <th>分类</th>
+              <th>发表时间</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="article_list" data-id="tr1">
+                <td class="article_title">四月微风</td>
+                <td class="article_cate">文学</td>
+                <td>2020-10-10 08:08:08</td>
+                <td>已发布</td>
+                <td>
+                    <!-- 动态添加自定义属性index -->
+                    <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+                    <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+                </td>
+              </tr>
+            <tr class="article_list" data-id="tr2">
+                <td class="article_title">小王子</td>
+                <td class="article_cate">文学</td>
+                <td>1988-10-10 08:08:08</td>
+                <td>已发布</td>
+                <td>
+                    <!-- 动态添加自定义属性index -->
+                    <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+                    <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+                </td>
+              </tr>
+            <tr class="article_list" data-id="tr3">
+                <td class="article_title">世界的本质</td>
+                <td class="article_cate">哲学</td>
+                <td>2002-10-10 08:08:08</td>
+                <td>已发布</td>
+                <td>
+                    <!-- 动态添加自定义属性index -->
+                    <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+                    <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+                </td>
+              </tr>
+            <tr class="article_list" data-id="tr4">
+                <td class="article_title">计算机科学</td>
+                <td class="article_cate">科普</td>
+                <td>2020-11-10 08:08:08</td>
+                <td>草稿</td>
+                <td>
+                    <!-- 动态添加自定义属性index -->
+                    <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+                    <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+                </td>
+              </tr>
+            <tr class="article_list" data-id="tr5">
+                <td class="article_title">养好脾胃</td>
+                <td class="article_cate">养生</td>
+                <td>2021-10-10 08:08:08</td>
+                <td>已发布</td>
+                <td>
+                    <!-- 动态添加自定义属性index -->
+                    <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+                    <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <!-- 分页区域 -->
+        <div id="pageBox"></div>
+      </div>
+    </div>
+    <!-- 列表区域tbody的模板引擎 -->
+    <script type="text/html" id="article-list">
+        {{each articleList}}
+        <tr>
+          <td>{{$value.title}}</td>
+          <td>{{$value.cate_name}}</td>
+          <!-- 调用过滤器，最终填到这儿的是过滤器的返回值 -->
+          <td>{{$value.pub_date|dataFormat}}</td>
+          <td>{{$value.state}}</td>
+          <td>
+              <!-- 动态添加自定义属性index -->
+              <button type="button"  data-id="{{$value.Id}}" class="layui-btn layui-btn-xs btn-change">编辑</button>
+              <button type="button" data-id="{{$value.Id}}" class="layui-btn layui-btn-danger layui-btn-xs btn-delete">删除</button>
+          </td>
+        </tr>
+        {{/each}}
+    </script>
+    <!-- 筛选区域所有分类模板引擎 -->
+    <script type="text/html" id="tpl-cates">
+        <option value="">所有分类</option>
+        {{each articleCateObjList}}
+        <option value="{{$value}}">{{$value}}</option>
+        {{/each}} 
+    </script>
+    <!-- 导入layui的js -->
+    <script src="../assets/lib/template-web.js"></script>
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <script src="../assets/lib/jquery.js"></script>
+    <script src="../assets/js/baseAPI.js"></script>
+    <script src="../assets/js/article/article_list.js"></script>
+  </body>
+</html>

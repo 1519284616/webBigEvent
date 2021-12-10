@@ -57,7 +57,8 @@ $(function(){
                         }
                         layer.msg('更换头像成功')
                         // 上传头像后调用父页面的函数，重新从服务器拿到用户的信息并渲染页面
-                        window.parent.getUserInfo();
+                        
+                        window.parent.initUserInfo();
                     }
                 })
             })
